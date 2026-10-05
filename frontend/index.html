@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>平面连杆装配分支追踪分析台</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header>
+  <h1>平面连杆装配分支追踪分析台</h1>
+  <span class="hint">绘制杆铰网络 → 设定驱动杆与角度范围 → 分析 → 选支 → 播放</span>
+</header>
+<main>
+  <section id="left">
+    <div id="toolbar">
+      <button data-mode="select" class="active" title="拖动关节、点击选择连杆">选择/拖动</button>
+      <button data-mode="addFixed" title="在画布上放置固定铰点">+固定铰点</button>
+      <button data-mode="addMoving" title="在画布上放置动铰点">+动铰点</button>
+      <button data-mode="addLink" title="依次点击两个关节创建连杆">+连杆</button>
+      <button data-mode="delete" title="点击关节或连杆删除">删除</button>
+      <span class="sep"></span>
+      <button id="btnExample" title="载入示例四连杆机构">示例</button>
+      <button id="btnClear" title="清空画布">清空</button>
+      <span class="sep"></span>
+      <button id="btnAnalyze" class="primary">分析</button>
+      <button id="btnPlay" disabled>播放</button>
+      <label id="speedLabel">速度 <input id="speed" type="range" min="5" max="180" value="60"></label>
+    </div>
+    <canvas id="cv" width="980" height="620"></canvas>
+    <div id="statusbar">就绪。请绘制机构或点击“示例”。</div>
+  </section>
+  <aside id="panel">
+    <h2>驱动设置</h2>
+    <div class="row">
+      <span>驱动杆：</span><b id="driverLabel">未选择</b>
+      <button id="btnSetDriver" title="将当前选中的连杆设为驱动杆">设所选为驱动杆</button>
+    </div>
+    <div class="row">
+      角度范围
+      <input id="thetaStart" type="number" value="0" step="5">° ~
+      <input id="thetaEnd" type="number" value="360" step="5">°
+    </div>
+    <h2>关节</h2>
+    <table id="jointTable">
+      <thead><tr><th>id</th><th>类型</th><th>x</th><th>y</th></tr></thead>
+      <tbody></tbody>
+    </table>
+    <h2>连杆</h2>
+    <table id="linkTable">
+      <thead><tr><th>id</th><th>关节a</th><th>关节b</th><th>长度</th><th>驱动</th></tr></thead>
+      <tbody></tbody>
+    </table>
+    <h2>分析结果</h2>
+    <div id="resultInfo">尚未分析。</div>
+    <div id="candidates"></div>
+  </aside>
+</main>
+<script src="/static/app.js"></script>
+</body>
+</html>
